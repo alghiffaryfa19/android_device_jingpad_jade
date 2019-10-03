@@ -165,6 +165,7 @@ WIFI_DRIVER_FW_PATH_AP := "ap_mode"
 WIFI_DRIVER_FW_PATH_P2P := "p2p_mode"
 WIFI_DRIVER_MODULE_PATH := "/odm/lib/modules/sprdwl_ng.ko"
 WIFI_DRIVER_MODULE_NAME := "sprdwl_ng"
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # Include the proprietary files BoardConfig.
 include vendor/jingpad/jade/BoardConfigVendor.mk
