@@ -67,3 +67,6 @@ ro.vendor.wcn.hardware.product=marlin3
 
 # Thermal
 persist.vendor.bsservice.enable=1
+
+# Zygote
+zygote.critical_window.minute=10
