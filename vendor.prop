@@ -86,6 +86,10 @@ ro.vendor.radio.modemtype=nr
 ro.vendor.product.partitionpath=/dev/block/by-name/
 ro.vendor.wcn.hardware.product=marlin3
 
+# SoC
+ro.soc.manufacturer=Spreadtrum
+ro.soc.model=T7510
+
 # Thermal
 persist.vendor.bsservice.enable=1
 
