@@ -16,7 +16,3 @@ ro.boot.hardware.revision=S813_V1
 ro.lmk.use_minfree_levels=true
 ro.lmk.use_psi=true
 ro.lmk.vmpressurenhanced=true
-
-# SDCardFS
-ro.sys.sdcardfs=true
-persist.sys.sdcardfs=force_on

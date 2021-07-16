@@ -65,7 +65,6 @@ on fs
     # exec /sbin/resize2fs -ef /fstab.ud710
     mount_all --early
     mount pstore pstore /sys/fs/pstore
-    setprop ro.crypto.fuse_sdcard true
     symlink /system/res /res
     symlink /system/bin /bin
 
