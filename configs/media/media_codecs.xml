@@ -83,11 +83,8 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.sprd.mp3l1.decoder" type="audio/mpeg-L1" />
         <MediaCodec name="OMX.sprd.mp3l2.decoder" type="audio/mpeg-L2" />
 -->
-        <MediaCodec name="OMX.google.imaadpcm.decoder" type="audio/ima-adpcm" />
     </Decoders>
 
-    <Include href="media_codecs_google_audio.xml" />
-    <Include href="media_codecs_google_telephony.xml" />
     <Settings>
         <Setting name="max-video-encoder-input-buffers" value="18" />
         <Domain name="tv" enabled="true" />
@@ -164,11 +161,6 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.sprd.soft.mpeg4.decoder" type="video/mp4v-es" />
         <MediaCodec name="OMX.sprd.soft.h263.decoder" type="video/3gpp" />
         <MediaCodec name="OMX.sprd.soft.h264.decoder" type="video/avc" />
--->
-        <MediaCodec name="OMX.google.mjpg.decoder" type="video/mjpg" />
-    </Decoders>
-    <Encoders>
-<!--
         <MediaCodec name="OMX.sprd.mpeg4.encoder" type="video/mp4v-es">
             <Limit name="size" min="176x144" max="1920x1088" />
             <Limit name="alignment" value="16x16" />
