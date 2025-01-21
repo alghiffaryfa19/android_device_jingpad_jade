@@ -1,0 +1,19 @@
+//
+// Copyright (C) 2025 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+prebuilt_etc {
+    name: "fstab.ud710",
+    src: "fstab.ud710",
+    vendor: true,
+    ramdisk_available: true,
+}
+
+prebuilt_etc {
+    name: "ueventd.ud710.rc",
+    filename: "ueventd.rc",
+    src: "ueventd.ud710.rc",
+    vendor: true,
+}
