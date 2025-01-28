@@ -94,6 +94,12 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/init/fstab.ud710
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_F2FS := true
 
+# RIL
+ENABLE_VENDOR_RIL_SERVICE := true
+
+# Security
+VENDOR_SECURITY_PATCH := 2021-08-05
+
 # Verified boot
 BOARD_AVB_ENABLE := true
 
@@ -136,3 +142,17 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += \
     --chain_partition odmko:7:$(BOARD_AVB_KEY_PATH_ODMKOIMAGE_PUB) \
     --chain_partition l_agdsp:8:$(BOARD_AVB_KEY_PATH_MODEMIMAGE_PUB) \
     --chain_partition l_pmsys:9:$(BOARD_AVB_KEY_PATH_MODEMIMAGE_PUB)
+
+# Wifi
+WPA_SUPPLICANT_VERSION := VER_2_1_DEVEL
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_HOSTAPD_DRIVER := NL80211
+WIFI_DRIVER_FW_PATH_PARAM := "/data/vendor/wifi/fwpath"
+WIFI_DRIVER_FW_PATH_STA := "sta_mode"
+WIFI_DRIVER_FW_PATH_AP := "ap_mode"
+WIFI_DRIVER_FW_PATH_P2P := "p2p_mode"
+WIFI_DRIVER_MODULE_PATH := "/vendor/lib/modules/sprdwl_ng.ko"
+WIFI_DRIVER_MODULE_NAME := "sprdwl_ng"
+
+# Include the proprietary files BoardConfig.
+include vendor/jingpad/jade/BoardConfigVendor.mk

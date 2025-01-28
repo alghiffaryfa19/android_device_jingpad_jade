@@ -5,6 +5,11 @@
 #
 
 from extract_utils.file import File
+from extract_utils.fixups_lib import (
+    lib_fixup_remove,
+    lib_fixups,
+    lib_fixups_user_type,
+)
 from extract_utils.main import (
     ExtractUtils,
     ExtractUtilsModule,
@@ -20,9 +25,26 @@ def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
     return f'{lib}_{partition}' if partition == 'vendor' else None
 
 
+lib_fixups: lib_fixups_user_type = {
+    **lib_fixups,
+    'libavatar': lib_fixup_remove,
+    'vendor.sprd.hardware.radio@1.0': lib_fixup_vendor_suffix,
+}
+
+
+blob_fixups: blob_fixups_user_type = {
+    'product/lib64/vendor.sprd.hardware.radio@1.0.so': blob_fixup()
+        .remove_needed('libhidltransport.so')
+        .remove_needed('libhwbinder.so'),
+    'vendor/lib/libnight.so': blob_fixup()
+        .remove_needed('libsprddepth.so')
+        .remove_needed('libbokeh_depth.so'),
+}  # fmt: skip
+
 module = ExtractUtilsModule(
     'jade',
     'jingpad',
+    lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
 )
 
