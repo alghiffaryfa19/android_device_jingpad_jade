@@ -78,10 +78,10 @@ on fs
     chmod 666 /dev/adf-overlay-engine0.0
 
 on post-fs
-    insmod ${ro.vendor.ko.mount.point}/socko/pvrsrvkm.ko
+    insmod /odm/lib/modules/pvrsrvkm.ko
     #insmode synaptics TP ko
-    insmod ${ro.vendor.ko.mount.point}/socko/synaptics_dsx_td4310.ko
-    insmod ${ro.vendor.ko.mount.point}/socko/akm4377.ko
+    insmod /odm/lib/modules/synaptics_dsx_td4310.ko
+    insmod /odm/lib/modules/akm4377.ko
     #bypass the gpu during the prior_bringu
     #setprop ro.kernel.qemu 1
     #setprop ro.kernel.qemu.gles 0
@@ -455,7 +455,7 @@ on property:persist.vendor.eng.jeita=1
     write /sys/class/power_supply/battery/charger.0/jeita_control 1
 
 on property:persist.vendor.eng.sprdwl=1
-    insmod ${ro.vendor.ko.mount.point}/socko/sprdwl_ng.ko
+    insmod /odm/lib/modules/sprdwl_ng.ko
 
 on property:persist.vendor.ylog_lite.enabled=1
     start vendor.ylog_lite

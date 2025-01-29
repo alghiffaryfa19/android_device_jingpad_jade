@@ -55,6 +55,7 @@ BOARD_MKBOOTIMG_ARGS += \
 
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
+NEED_KERNEL_MODULE_ODM := true
 
 TARGET_KERNEL_SOURCE := kernel/jingpad/ud710
 TARGET_KERNEL_CONFIG := sprd_roc1_defconfig
@@ -157,7 +158,7 @@ WIFI_DRIVER_FW_PATH_PARAM := "/data/vendor/wifi/fwpath"
 WIFI_DRIVER_FW_PATH_STA := "sta_mode"
 WIFI_DRIVER_FW_PATH_AP := "ap_mode"
 WIFI_DRIVER_FW_PATH_P2P := "p2p_mode"
-WIFI_DRIVER_MODULE_PATH := "/vendor/lib/modules/sprdwl_ng.ko"
+WIFI_DRIVER_MODULE_PATH := "/odm/lib/modules/sprdwl_ng.ko"
 WIFI_DRIVER_MODULE_NAME := "sprdwl_ng"
 
 # Include the proprietary files BoardConfig.

@@ -16,8 +16,8 @@ on post-fs-data
     chmod 660     /dev/rt5512
 
 on post-fs
-    insmod ${ro.vendor.ko.mount.point}/socko/gt738x_ts.ko
-    insmod ${ro.vendor.ko.mount.point}/socko/elan_ts_i2c.ko
+    insmod /odm/lib/modules/gt738x_ts.ko
+    insmod /odm/lib/modules/elan_ts_i2c.ko
 
 #modify for ams calibration
     chmod 666 /mnt/vendor/productinfo/tcs3430_calibration.txt
