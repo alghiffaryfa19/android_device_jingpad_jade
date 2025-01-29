@@ -6,6 +6,7 @@
 system                                              /system                  ext4     ro,barrier=1                                                   wait,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
 vendor                                              /vendor                  ext4     ro,barrier=1                                                   wait,logical,first_stage_mount
 product                                             /product                 ext4     ro,barrier=1                                                   wait,logical,first_stage_mount
+odm                                                 /odm                     ext4     ro,barrier=1                                                   wait,logical,first_stage_mount
 /dev/block/by-name/userdata                         /data                    f2fs     noatime,nosuid,nodev,discard,resgid=1065,inline_xattr,inline_data,inlinecrypt,fsync_mode=nobarrier wait,fileencryption=aes-256-xts,check,reservedsize=128M
 /dev/block/by-name/cache                            /cache                   ext4     noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc          wait,check
 /dev/block/by-name/metadata                         /metadata                ext4     nodev,noatime,nosuid                                           wait,formattable,first_stage_mount
