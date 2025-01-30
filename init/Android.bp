@@ -12,6 +12,55 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
+    name: "init.cali.rc",
+    src: "init.cali.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.common.rc",
+    src: "init.common.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.factorytest.rc",
+    src: "init.factorytest.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.ram.rc",
+    src: "init.ram.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.storage.rc",
+    src: "init.storage.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.ud710_3h10u.rc",
+    src: "init.ud710_3h10u.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.ud710_3h10u.usb.rc",
+    src: "init.ud710_3h10u.usb.rc",
+    relative_install_path: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
     name: "ueventd.ud710.rc",
     filename: "ueventd.rc",
     src: "ueventd.ud710.rc",
