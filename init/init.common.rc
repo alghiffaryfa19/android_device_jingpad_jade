@@ -1,4 +1,4 @@
-import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
+import /vendor/etc/init/hw/init.ud710.usb.rc
 import /vendor/etc/init/hw/init.ram.rc
 import /vendor/etc/init/hw/init.storage.rc
 

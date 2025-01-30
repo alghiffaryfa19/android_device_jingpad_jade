@@ -33,15 +33,15 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "init.ud710_3h10u.rc",
-    src: "init.ud710_3h10u.rc",
+    name: "init.ud710.rc",
+    src: "init.ud710.rc",
     relative_install_path: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "init.ud710_3h10u.usb.rc",
-    src: "init.ud710_3h10u.usb.rc",
+    name: "init.ud710.usb.rc",
+    src: "init.ud710.usb.rc",
     relative_install_path: "init/hw",
     vendor: true,
 }

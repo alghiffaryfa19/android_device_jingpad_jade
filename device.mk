@@ -104,8 +104,8 @@ PRODUCT_PACKAGES += \
     init.common.rc \
     init.ram.rc \
     init.storage.rc \
-    init.ud710_3h10u.rc \
-    init.ud710_3h10u.usb.rc \
+    init.ud710.rc \
+    init.ud710.usb.rc \
     ueventd.ud710.rc
 
 PRODUCT_COPY_FILES += \
