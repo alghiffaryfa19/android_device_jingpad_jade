@@ -1,0 +1,68 @@
+# Bluetooth
+persist.bluetooth.a2dp_offload.disabled=false
+ro.bluetooth.a2dp_offload.supported=true
+ro.bt.bdaddr_path=/data/vendor/bluetooth/btmac.txt
+
+# Camera
+persist.vendor.cam.ai.scence.enable=true
+persist.vendor.cam.ba.blur.version=6
+persist.vendor.cam.ba.portrait.enable=0
+persist.vendor.cam.cnr.mode=1
+persist.vendor.cam.facebeauty.corp=2
+persist.vendor.cam.focus.distance=300
+persist.vendor.cam.fr.blur.version=1
+persist.vendor.cam.fr.portrait.enable=0
+persist.vendor.cam.hdr.zsl=1
+persist.vendor.cam.night.pro.enable=0
+persist.vendor.cam.opticszoom.cali.mode=3
+persist.vendor.cam.res.bokeh=RES_12M
+persist.vendor.cam.wt.enable=0
+ro.vendor.camera.dualcamera_cali_time=3
+
+# Crypto
+ro.crypto.volume.filenames_mode=aes-256-cts
+
+# DRM
+drm.service.enabled=true
+
+# Face
+persist.vendor.cam.faceid.version=1
+persist.vendor.display.faceid=1
+
+# Graphics
+ro.opengles.version=196610
+
+# GNSS
+ro.vendor.gnsschip=marlin3pcie
+
+# Media
+media.stagefright.thumbnail.prefer_hw_codecs=true
+
+# Neural networks
+persist.vendor.npu.version=1
+
+# Radio
+persist.radio.multisim.config=ssss
+persist.vendor.modem.nr.enable=1
+persist.vendor.modem.nvp=nr_
+persist.vendor.radio.phone_count=1
+persist.vendor.sys.modemreset=1
+persist.vendor.sys.modem.save_dump=0
+persist.vendor.sys.volte.enable=true
+persist.vendor.sys.wcnreset=1
+ro.telephony.default_network=26
+ro.vendor.modem.alive=/dev/spipe_nr2
+ro.vendor.modem.assert=/dev/spipe_nr2
+ro.vendor.modem.dev=/dev/modem/
+ro.vendor.modem.diag=/dev/sdiag_nr
+ro.vendor.modem.eth=sipa_eth
+ro.vendor.modem.log=/dev/slog_nr
+ro.vendor.modem.loop=/dev/spipe_nr0
+ro.vendor.modem.tty=/dev/stty_nr
+ro.vendor.modem.wcn.enable=1
+ro.vendor.radio.modemtype=nr
+ro.vendor.product.partitionpath=/dev/block/by-name/
+ro.vendor.wcn.hardware.product=marlin3
+
+# Thermal
+persist.vendor.bsservice.enable=1

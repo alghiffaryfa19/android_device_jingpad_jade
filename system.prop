@@ -1,0 +1,22 @@
+# Audio
+ro.audio.offload_wakelock=0
+ro.config.media_vol_default=12
+ro.config.media_vol_steps=15
+
+# Camera
+persist.sys.cam.filter.version=2
+
+# FRP
+ro.frp.pst=/dev/block/by-name/persist
+
+# Hardware
+ro.boot.hardware.revision=S813_V1
+
+# Low Memory Killer
+ro.lmk.use_minfree_levels=true
+ro.lmk.use_psi=true
+ro.lmk.vmpressurenhanced=true
+
+# SDCardFS
+ro.sys.sdcardfs=true
+persist.sys.sdcardfs=force_on
