@@ -101,9 +101,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.ud710 \
     fstab.ud710.ramdisk \
-    init.cali.rc \
     init.common.rc \
-    init.factorytest.rc \
     init.ram.rc \
     init.storage.rc \
     init.ud710_3h10u.rc \

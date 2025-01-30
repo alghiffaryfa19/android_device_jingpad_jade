@@ -12,22 +12,8 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "init.cali.rc",
-    src: "init.cali.rc",
-    relative_install_path: "init/hw",
-    vendor: true,
-}
-
-prebuilt_etc {
     name: "init.common.rc",
     src: "init.common.rc",
-    relative_install_path: "init/hw",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "init.factorytest.rc",
-    src: "init.factorytest.rc",
     relative_install_path: "init/hw",
     vendor: true,
 }
