@@ -434,8 +434,6 @@ vendor/etc/init/rpmbserver_androido_ufs.rc
 vendor/etc/init/storageproxyd_androidp_ufs.rc
 
 # USB
-vendor/bin/hw/android.hardware.usb@1.1-service
-vendor/etc/init/android.hardware.usb@1.1-service.rc
 vendor/etc/adb.iso
 
 # Vibrator
