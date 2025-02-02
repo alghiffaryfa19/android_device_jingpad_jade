@@ -1,0 +1,90 @@
+<compatibility-matrix version="1.0" type="framework">
+    <hal format="hidl">
+        <name>android.hardware.biometrics.face</name>
+        <version>1.0</version>
+        <interface>
+            <name>IBiometricsFace</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.power</name>
+        <version>1.3</version>
+        <interface>
+            <name>IPower</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.vibrator</name>
+        <version>1.0</version>
+        <interface>
+            <name>IVibrator</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.connmgr</name>
+        <version>1.0</version>
+        <interface>
+            <name>IConnmgr</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.enhance</name>
+        <version>1.0</version>
+        <interface>
+            <name>IEnhance</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.face</name>
+        <version>1.0</version>
+        <interface>
+            <name>IExtBiometricsFace</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.gnss</name>
+        <version>2.0</version>
+        <interface>
+            <name>IGnss</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.network</name>
+        <version>1.0</version>
+        <interface>
+            <name>INetworkControl</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.power</name>
+        <version>4.0</version>
+        <interface>
+            <name>IPower</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.radio</name>
+        <version>1.0</version>
+        <interface>
+            <name>IExtRadio</name>
+            <instance>slot1</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.sprd.hardware.thermal</name>
+        <version>1.0</version>
+        <interface>
+            <name>IExtThermal</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</compatibility-matrix>
