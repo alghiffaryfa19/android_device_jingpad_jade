@@ -40,6 +40,10 @@ blob_fixups: blob_fixups_user_type = {
     'product/lib64/vendor.sprd.hardware.radio@1.0.so': blob_fixup()
         .remove_needed('libhidltransport.so')
         .remove_needed('libhwbinder.so'),
+    'system/lib64/libzmf.so': blob_fixup()
+        .add_needed('libui_shim.so'),
+    'vendor/bin/hw/android.hardware.keymaster@4.0-unisoc.service': blob_fixup()
+        .add_needed('libkeymaster_shim.so'),
     (
         'vendor/etc/init/img-nn-hal-1-2.rc',
         'vendor/etc/init/init.goodix.rc',
@@ -54,6 +58,22 @@ blob_fixups: blob_fixups_user_type = {
     ): blob_fixup()
         .regex_replace('\\${ro.vendor.ko.mount.point}\\/socko', '/odm/lib/modules'),
     (
+        'vendor/lib/hw/camera.ud710.so',
+        'vendor/lib/libstagefright_sprd_deintl.so',
+        'vendor/lib/libstagefright_sprd_h264dec.so',
+        'vendor/lib/libstagefright_sprd_h264enc.so',
+        'vendor/lib/libstagefright_sprd_h265dec.so',
+        'vendor/lib/libstagefright_sprd_h265enc.so',
+        'vendor/lib/libstagefright_sprd_mpeg4dec.so',
+        'vendor/lib/libstagefright_sprd_mpeg4enc.so',
+        'vendor/lib/libstagefright_sprd_vp9dec.so',
+        'vendor/lib/libstagefright_sprd_vpxdec.so',
+        'vendor/lib64/hw/hwcomposer.ud710.so',
+    ): blob_fixup()
+        .replace_needed('libui.so', 'libui-v30.so'),
+    'vendor/lib/android.hardware.camera.provider@2.4-legacy-sprd.so': blob_fixup()
+        .add_needed('libcamera_provider_shim.so'),
+    (
         'vendor/lib/libiwnpi.so',
         'vendor/lib64/libwifi-hal-sprd.so',
     ): blob_fixup()
@@ -61,6 +81,14 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/lib/libnight.so': blob_fixup()
         .remove_needed('libsprddepth.so')
         .remove_needed('libbokeh_depth.so'),
+    'vendor/lib/libsprdaudiohalv5@4.0.so': blob_fixup()
+        .replace_needed('android.hardware.audio.common@4.0-util.so', 'android.hardware.audio.common@4.0-util-sprd.so'),
+    'vendor/lib/libsprdaudiohalv5@5.0.so': blob_fixup()
+        .replace_needed('android.hardware.audio.common@5.0-util.so', 'android.hardware.audio.common@5.0-util-sprd.so'),
+    'vendor/lib64/hw/gatekeeper.default.so': blob_fixup()
+        .replace_needed('libgatekeeper.so', 'libgatekeeper-v29.so'),
+    'vendor/lib64/libvendor.goodix.hardware.biometrics.fingerprint@2.1.so': blob_fixup()
+        .replace_needed('libhidlbase.so', 'libhidlbase-v32.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(

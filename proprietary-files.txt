@@ -27,6 +27,8 @@ vendor/lib/hw/audio.primary.ud710.so
 vendor/lib/hw/awinic.audio.effect.so;FIX_SONAME
 vendor/lib/soundfx/libbundlewrapper2.so
 vendor/lib/soundfx/libsprdvoiceprocessing.so
+vendor/lib/android.hardware.audio.common@4.0-util.so:vendor/lib/android.hardware.audio.common@4.0-util-sprd.so;FIX_SONAME
+vendor/lib/android.hardware.audio.common@5.0-util.so:vendor/lib/android.hardware.audio.common@5.0-util-sprd.so;FIX_SONAME
 vendor/lib/libaudionpi.so
 vendor/lib/libsprdaudiohal_deathhandlerv5.so
 vendor/lib/libsprdaudiohalv5.so
@@ -161,7 +163,7 @@ vendor/lib/libjpeg_hw_sprd.so
 vendor/lib/libjpegenc_sw_sprd.so
 vendor/lib/libkey.so
 vendor/lib/liblightportrait.so
-vendor/lib/libmfnr.so
+vendor/lib/libmfnr.so;DISABLE_CHECKELF
 vendor/lib/libnight.so
 vendor/lib/libotp_general.so
 vendor/lib/libparam_gc8034.so
@@ -263,8 +265,8 @@ vendor/lib64/hw/gatekeeper.default.so
 vendor/firmware/rgx.fw.signed.24.50.208.504;SYMLINK=vendor/firmware/rgx.fw.24.50.208.504
 vendor/lib64/egl/libEGL_POWERVR_ROGUE.so
 vendor/lib64/egl/libGLESv1_CM_POWERVR_ROGUE.so
-vendor/lib64/egl/libGLESv2_POWERVR_ROGUE.so
-vendor/lib64/hw/vulkan.ud710.so;FIX_SONAME
+vendor/lib64/egl/libGLESv2_POWERVR_ROGUE.so;DISABLE_CHECKELF
+vendor/lib64/hw/vulkan.ud710.so;FIX_SONAME;DISABLE_CHECKELF
 vendor/lib64/libIMGegl.so
 vendor/lib64/libglslcompiler.so
 vendor/lib64/libsrv_um.so
@@ -330,7 +332,7 @@ vendor/bin/hw/android.hardware.neuralnetworks@1.2-service-img-nn-hw
 vendor/etc/init/img-nn-hal-1-2.rc
 vendor/etc/npu_img_hwconfig.json
 vendor/etc/npu_img_mapconfig.json
-vendor/lib64/libPVRRS.so
+vendor/lib64/libPVRRS.so;DISABLE_CHECKELF
 vendor/lib64/libPVRScopeServices.so
 vendor/lib64/libimgcustom.so
 vendor/lib64/libnnaruntime.so
