@@ -71,8 +71,6 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/hw/hwcomposer.ud710.so',
     ): blob_fixup()
         .replace_needed('libui.so', 'libui-v30.so'),
-    'vendor/lib/android.hardware.camera.provider@2.4-legacy-sprd.so': blob_fixup()
-        .add_needed('libcamera_provider_shim.so'),
     (
         'vendor/lib/libiwnpi.so',
         'vendor/lib64/libwifi-hal-sprd.so',

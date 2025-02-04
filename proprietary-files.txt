@@ -110,16 +110,7 @@ vendor/etc/tf_models/deeplabv3plus0.tflite
 vendor/etc/tf_models/deeplabv3plus1.tflite
 vendor/etc/sensor_config.xml
 vendor/etc/sprd_hdr_tuning.param
-vendor/lib/hw/android.hardware.camera.provider@2.4-impl-sprd.so
 vendor/lib/hw/camera.ud710.so
-vendor/lib/android.hardware.camera.provider@2.4-external-sprd.so
-vendor/lib/android.hardware.camera.provider@2.4-legacy-sprd.so
-vendor/lib/camera.device@3.2-impl-sprd.so
-vendor/lib/camera.device@3.3-impl-sprd.so
-vendor/lib/camera.device@3.4-external-impl-sprd.so
-vendor/lib/camera.device@3.4-impl-sprd.so
-vendor/lib/camera.device@3.5-external-impl-sprd.so
-vendor/lib/camera.device@3.5-impl-sprd.so
 vendor/lib/libBokeh2Frames.so
 vendor/lib/libSegLite.so
 vendor/lib/libSegLiteMNN.so
