@@ -127,6 +127,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml
 
+# Overlay
+PRODUCT_PACKAGES += \
+    JingPadFrameworksResTarget \
+    JingPadTelephonyResTarget \
+    JingPadTetheringConfigResTarget \
+    JingPadWifiResTarget
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power.stats@1.0-service.mock
