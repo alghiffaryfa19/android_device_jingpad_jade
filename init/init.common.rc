@@ -63,7 +63,7 @@ on init
 on fs
     # ubiattach 0 ubipac
     # exec /sbin/resize2fs -ef /fstab.ud710
-    mount_all /vendor/etc/fstab.ud710
+    mount_all --early
     mount pstore pstore /sys/fs/pstore
     setprop ro.crypto.fuse_sdcard true
     symlink /system/res /res
@@ -134,6 +134,9 @@ on post-fs
     chmod 666 /sys/class/sprd_sensorhub/sensor_hub/raw_data_ps
     chmod 666 /sys/class/sprd_sensorhub/sensor_hub/light_sensor_calibrator
     chmod 770 /mnt/vendor/productinfo/sensor_calibration_data/light
+
+on late-fs
+    mount_all --late
 
 on post-fs-data
     mkdir /data/vendor/local 0751 root root
