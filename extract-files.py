@@ -80,9 +80,9 @@ blob_fixups: blob_fixups_user_type = {
         .remove_needed('libsprddepth.so')
         .remove_needed('libbokeh_depth.so'),
     'vendor/lib/libsprdaudiohalv5@4.0.so': blob_fixup()
-        .replace_needed('android.hardware.audio.common@4.0-util.so', 'android.hardware.audio.common@4.0-util-sprd.so'),
+        .add_needed('android.hardware.audio.common@4.0-util-wrapper.so'),
     'vendor/lib/libsprdaudiohalv5@5.0.so': blob_fixup()
-        .replace_needed('android.hardware.audio.common@5.0-util.so', 'android.hardware.audio.common@5.0-util-sprd.so'),
+        .add_needed('android.hardware.audio.common@5.0-util-wrapper.so'),
     'vendor/lib64/hw/gatekeeper.default.so': blob_fixup()
         .replace_needed('libgatekeeper.so', 'libgatekeeper-v29.so'),
     'vendor/lib64/libvendor.goodix.hardware.biometrics.fingerprint@2.1.so': blob_fixup()
