@@ -228,4 +228,4 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
 
 # Inherit from the proprietary files makefile.
-$(call inherit-product, vendor/jingpad/jade/jade-vendor.mk)
+# $(call inherit-product, vendor/jingpad/jade/jade-vendor.mk)

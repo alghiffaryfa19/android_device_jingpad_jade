@@ -12,7 +12,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/jingpad/jade/device.mk)
 
 # Inherit from the LineageOS configuration.
-$(call inherit-product, vendor/lineage/config/common_full_tablet.mk)
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 PRODUCT_BRAND := JingPad
 PRODUCT_DEVICE := jade
