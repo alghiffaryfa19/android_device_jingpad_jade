@@ -77,8 +77,6 @@ BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 BOARD_KERNEL_SEPARATED_DTBO := 
 endif
 
-# Partitions
--include vendor/lineage/config/BoardConfigReservedSize.mk
 
 BOARD_USES_METADATA_PARTITION := true
 
@@ -182,5 +180,44 @@ WIFI_DRIVER_MODULE_PATH := "/odm/lib/modules/sprdwl_ng.ko"
 WIFI_DRIVER_MODULE_NAME := "sprdwl_ng"
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
-# Include the proprietary files BoardConfig.
-include vendor/jingpad/jade/BoardConfigVendor.mk
+
+# TWRP Configuration
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
+ifeq ($(USE_LANDSCAPE),true)
+	RECOVERY_TOUCHSCREEN_FLIP_Y := true
+	RECOVERY_TOUCHSCREEN_SWAP_XY := true
+	TW_THEME := landscape_hdpi
+	TW_ROTATION := 90
+else
+	RECOVERY_TOUCHSCREEN_FLIP_Y := false
+	RECOVERY_TOUCHSCREEN_SWAP_XY := false
+	TW_THEME := portrait_hdpi
+	TW_ROTATION := 0
+endif
+TW_EXTRA_LANGUAGES := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_USE_TOOLBOX := true
+TW_USE_FSCRYPT_POLICY := 1
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FASTBOOTD := true
+TW_EXCLUDE_APEX := true
+#TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_NO_EXFAT_FUSE := true
+TW_DEFAULT_BRIGHTNESS := 614
+TW_HAS_EDL_MODE := true
+TW_SKIP_ADDITIONAL_FSTAB := true
+TW_NO_HAPTICS := true
+TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone41/temp
+
+TW_MTP_DEVICE := /dev/usb-ffs/mtp
+TW_EXCLUDE_TWRPAPP := true
+TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
+
+# TWRP Debug Flags
+TARGET_USES_LOGD := true
+TW_CRYPTO_SYSTEM_VOLD_DEBUG := true
+TWRP_INCLUDE_LOGCAT := true
