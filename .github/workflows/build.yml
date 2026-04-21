@@ -163,6 +163,40 @@ jobs:
         cp $OUT/${BUILD_TARGET}.img $OUT/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       
+
+    - name: Install avbtool
+      run: |
+        git clone https://github.com/AndroidBootloader/platform_external_avb avb
+        chmod +x avb/avbtool.py
+        sudo ln -s $(pwd)/avb/avbtool.py /usr/local/bin/avbtool
+
+    - name: Prepare signing key
+      run: |
+        cp ${GITHUB_WORKSPACE}/rsa4096_recovery.pem ${{ steps.pwd.outputs.workspace-folder }}/
+
+    - name: Sign recovery image (AVB)
+      run: |
+        cd ${{ steps.pwd.outputs.workspace-folder }}
+
+        # Path key (pastikan file ini ada di repo / secrets)
+        KEY_PATH=rsa4096_recovery.pem
+
+        # Sign portrait image
+        avbtool add_hash_footer \
+          --image out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img \
+          --partition_name recovery \
+          --partition_size 67108864 \
+          --key $KEY_PATH \
+          --algorithm SHA256_RSA4096
+
+        # Sign landscape image
+        avbtool add_hash_footer \
+          --image out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img \
+          --partition_name recovery \
+          --partition_size 67108864 \
+          --key $KEY_PATH \
+          --algorithm SHA256_RSA4096
+
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
