@@ -147,8 +147,6 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${MAKEFILE_NAME}-eng && make clean && make ${BUILD_TARGET}image -j$(nproc --all)
-
-        cp $OUT/${BUILD_TARGET}.img $OUT/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     # Do light-weight clean up, then build landscape variant
@@ -193,17 +191,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: | 
-          workspace/out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
           workspace/out/target/product/${{ env.DEVICE_NAME }}/*.zip
           workspace/out/target/product/${{ env.DEVICE_NAME }}/*vendor*.img
-        name: ${{ steps.version.outputs.TWRP_VERSION }} ${{ env.DEVICE_NAME }} ${{ steps.version.outputs.OUTPUT_FILEBASE }}
-        body: |
-          This is a TWRP build for ${{ env.DEVICE_PRODUCT_NAME }} (${{ env.DEVICE_NAME }}).
-          Choose your preferred theme between portrait and landscape.
-          
-          TWRP version: ${{ steps.version.outputs.TWRP_VERSION }}
-          Manifest: ${{ env.MANIFEST_BRANCH }}
-          Device: ${{ env.DEVICE_NAME }}
-          Output: ${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
+          workspace/out/target/product/${{ env.DEVICE_NAME }}/recovery.img
+        name: TWRP
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
