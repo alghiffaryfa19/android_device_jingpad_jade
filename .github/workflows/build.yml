@@ -190,10 +190,14 @@ jobs:
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: twrp
         files: | 
           workspace/out/target/product/${{ env.DEVICE_NAME }}/*.zip
           workspace/out/target/product/${{ env.DEVICE_NAME }}/*vendor*.img
           workspace/out/target/product/${{ env.DEVICE_NAME }}/recovery.img
         name: TWRP
+        draft: false
+        prerelease: false
+        generate_release_notes: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
