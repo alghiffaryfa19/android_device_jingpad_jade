@@ -49,6 +49,8 @@ jobs:
       run: |
         sudo apt update
         sudo apt -y upgrade
+        sudo dpkg --add-architecture i386
+        sudo apt update
         sudo apt -y install \
           gperf gcc-multilib g++-multilib libc6-dev \
           libncurses-dev libncurses-dev:i386 \
