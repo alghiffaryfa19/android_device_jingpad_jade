@@ -152,57 +152,48 @@ jobs:
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     # Do light-weight clean up, then build landscape variant
-    - name: Building landscape variant
-      run: |
-        source build/envsetup.sh
-        export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${MAKEFILE_NAME}-eng
-        rm -r out/target/product/jade/ramdisk-recovery.* out/target/product/jade/recovery.img out/target/product/jade/recovery/
-        make ${BUILD_TARGET}image USE_LANDSCAPE=true -j$(nproc --all)
+    # - name: Building landscape variant
+    #   run: |
+    #     source build/envsetup.sh
+    #     export ALLOW_MISSING_DEPENDENCIES=true
+    #     lunch ${MAKEFILE_NAME}-eng
+    #     rm -r out/target/product/jade/ramdisk-recovery.* out/target/product/jade/recovery.img out/target/product/jade/recovery/
+    #     make ${BUILD_TARGET}image USE_LANDSCAPE=true -j$(nproc --all)
         
-        cp $OUT/${BUILD_TARGET}.img $OUT/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+    #     cp $OUT/${BUILD_TARGET}.img $OUT/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
+    #   working-directory: ${{ steps.pwd.outputs.workspace-folder }}
       
 
-    - name: Install avbtool
-      run: |
-        git clone https://github.com/AndroidBootloader/platform_external_avb avb
-        chmod +x avb/avbtool.py
-        sudo ln -s $(pwd)/avb/avbtool.py /usr/local/bin/avbtool
+    # - name: Install avbtool
+    #   run: |
+    #     git clone https://github.com/AndroidBootloader/platform_external_avb avb
+    #     chmod +x avb/avbtool.py
+    #     sudo ln -s $(pwd)/avb/avbtool.py /usr/local/bin/avbtool
 
-    - name: Prepare signing key
-      run: |
-        cp ${GITHUB_WORKSPACE}/rsa4096_recovery.pem ${{ steps.pwd.outputs.workspace-folder }}/
+    # - name: Prepare signing key
+    #   run: |
+    #     cp ${GITHUB_WORKSPACE}/rsa4096_recovery.pem ${{ steps.pwd.outputs.workspace-folder }}/
 
-    - name: Sign recovery image (AVB)
-      run: |
-        cd ${{ steps.pwd.outputs.workspace-folder }}
+    # - name: Sign recovery image (AVB)
+    #   run: |
+    #     cd ${{ steps.pwd.outputs.workspace-folder }}
 
-        # Path key (pastikan file ini ada di repo / secrets)
-        KEY_PATH=rsa4096_recovery.pem
+    #     # Path key (pastikan file ini ada di repo / secrets)
+    #     KEY_PATH=rsa4096_recovery.pem
 
-        # Sign portrait image
-        avbtool add_hash_footer \
-          --image out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img \
-          --partition_name recovery \
-          --partition_size 67108864 \
-          --key $KEY_PATH \
-          --algorithm SHA256_RSA4096
-
-        # Sign landscape image
-        avbtool add_hash_footer \
-          --image out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img \
-          --partition_name recovery \
-          --partition_size 67108864 \
-          --key $KEY_PATH \
-          --algorithm SHA256_RSA4096
+    #     # Sign portrait image
+    #     avbtool add_hash_footer \
+    #       --image out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img \
+    #       --partition_name recovery \
+    #       --partition_size 41943040 \
+    #       --key $KEY_PATH \
+    #       --algorithm SHA256_RSA4096
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
         files: | 
           workspace/out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
-          workspace/out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
           workspace/out/target/product/${{ env.DEVICE_NAME }}/*.zip
           workspace/out/target/product/${{ env.DEVICE_NAME }}/*vendor*.img
         name: ${{ steps.version.outputs.TWRP_VERSION }} ${{ env.DEVICE_NAME }} ${{ steps.version.outputs.OUTPUT_FILEBASE }}
@@ -214,6 +205,5 @@ jobs:
           Manifest: ${{ env.MANIFEST_BRANCH }}
           Device: ${{ env.DEVICE_NAME }}
           Output: ${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
-          Output: ${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
