@@ -1,0 +1,183 @@
+name: Recovery Build
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+env:
+  MANIFEST_URL: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp
+  MANIFEST_BRANCH: twrp-12.1
+  DEVICE_TREE_URL: https://github.com/alghiffaryfa19/android_device_jingpad_jade
+  DEVICE_TREE_BRANCH: lineage-22.1
+  DEVICE_PATH: device/jingpad/jade
+  DEVICE_NAME: jade
+  DEVICE_PRODUCT_NAME: JingPad C1
+  MAKEFILE_NAME: lineage_jade
+  BUILD_TARGET: recovery
+
+jobs:
+  build:
+    if: github.event.repository.owner.id == github.event.sender.id
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Display Run Parameters
+      run: |
+        echo "::group::User Environment Variables"
+        echo "Manifest URL: ${MANIFEST_URL}"
+        echo "Manifest Branch: ${MANIFEST_BRANCH}"
+        echo "Device Tree URL: ${DEVICE_TREE_URL}"
+        echo "Device Tree Branch: ${DEVICE_TREE_BRANCH}"
+        echo "Device Path: ${DEVICE_PATH}"
+        echo "Device Name: ${DEVICE_NAME}"
+        echo "Makefile Name: ${MAKEFILE_NAME}"
+        echo "Build Target: ${BUILD_TARGET}.img"
+        echo "::endgroup::"
+ 
+    # You might want to Checkout your repo first, but not mandatory
+    - name: Check Out
+      uses: actions/checkout@v3
+    # Cleanup The Actions Workspace Using Custom Composite Run Actions
+    - name: Cleanup
+      uses: rokibhasansagar/slimhub_actions@main
+      # That's it! Now use your normal steps
+
+    - name: Prepare the environment
+      run: |
+        sudo apt update
+        sudo apt -y upgrade
+        sudo apt -y install \
+          gperf gcc-multilib g++-multilib libc6-dev \
+          libncurses-dev libncurses-dev:i386 \
+          x11proto-core-dev libx11-dev \
+          libgl1-mesa-dev libxml2-utils xsltproc \
+          bc ccache liblz4-tool \
+          libsdl1.2-dev libwxgtk3.2-dev \
+          libxml2 lzop pngcrush schedtool squashfs-tools imagemagick \
+          libbz2-dev lzma ncftp qemu-user-static \
+          libstdc++-10-dev python3
+
+    - name: Install OpenJDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '8'
+
+    - name: Setup SSH Keys
+      if: ${{ startsWith(github.event.inputs.MANIFEST_URL, 'git@github.com') || 
+          startsWith(github.event.inputs.DEVICE_TREE_URL, 'git@github.com') }}
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+          ssh-private-key: |
+            ${{ secrets.SSH_PRIVATE_KEY }}
+
+
+    - name: Install repo
+      run: |
+        mkdir ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        sudo ln -sf ~/bin/repo /usr/bin/repo
+      
+    - name: Initialize repo
+      run: |
+        mkdir workspace
+        cd workspace
+        echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT
+        git config --global user.name "ozan"
+        git config --global user.email "alghiffaryfa19@gmail.com"
+        repo init --depth=1 -u ${MANIFEST_URL} -b ${MANIFEST_BRANCH}
+      id: pwd
+          
+    - name: Repo Sync
+      run: |
+        repo sync -j$(nproc --all) --force-sync
+      working-directory: workspace
+
+    - name: Apply patches
+      run: |
+        cd bootable/recovery
+        git fetch https://github.com/polygraphene/android_bootable_recovery fixtheme && git checkout FETCH_HEAD
+      working-directory: workspace
+
+    - name: Clone device tree
+      run: |
+        git clone ${DEVICE_TREE_URL} -b ${DEVICE_TREE_BRANCH} ./${DEVICE_PATH}
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+
+    - name: Check Build Tree
+      uses: haya14busa/action-cond@v1
+      id: buildtree
+      with:
+        cond: ${{ github.event.inputs.MANIFEST_BRANCH == 'twrp-11' || github.event.inputs.MANIFEST_BRANCH == 'twrp-12.1' }}
+        if_true: twrp
+        if_false: omni
+
+# Not needed for my device. The dependency (device/qcom/twrp-common) is already in .repo/manifests/twrp-default.xml
+#    - name: Sync Device Dependencies
+#      run: |
+#        bash ${GITHUB_WORKSPACE}/scripts/convert.sh ${DEVICE_PATH}/${{ steps.buildtree.outputs.value }}.dependencies
+#        repo sync -j$(nproc --all)
+#      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+#      continue-on-error: true
+
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 12
+
+    - name: Get version number
+      id: version
+      run: |
+        export TWRP_VERSION=$(sed -nr 's/#define TW_MAIN_VERSION_STR\s+"(.*)"/\1/p' bootable/recovery/variables.h)
+        export OUTPUT_FILEBASE=twrp-${TWRP_VERSION}-${DEVICE_NAME}-${GITHUB_REF#refs/tags/}
+        export GITHUB_REF_TAG=${GITHUB_REF#refs/tags/}
+        echo "TWRP_VERSION=$TWRP_VERSION" >> $GITHUB_OUTPUT
+        echo "OUTPUT_FILEBASE=$OUTPUT_FILEBASE" >> $GITHUB_OUTPUT
+        echo "GITHUB_REF_TAG=$GITHUB_REF_TAG" >> $GITHUB_OUTPUT
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+      
+    - name: Building recovery
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch ${MAKEFILE_NAME}-eng && make clean && make ${BUILD_TARGET}image -j$(nproc --all)
+
+        cp $OUT/${BUILD_TARGET}.img $OUT/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+
+    # Do light-weight clean up, then build landscape variant
+    - name: Building landscape variant
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch ${MAKEFILE_NAME}-eng
+        rm -r out/target/product/jade/ramdisk-recovery.* out/target/product/jade/recovery.img out/target/product/jade/recovery/
+        make ${BUILD_TARGET}image USE_LANDSCAPE=true -j$(nproc --all)
+        
+        cp $OUT/${BUILD_TARGET}.img $OUT/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+      
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: | 
+          workspace/out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
+          workspace/out/target/product/${{ env.DEVICE_NAME }}/${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
+          workspace/out/target/product/${{ env.DEVICE_NAME }}/*.zip
+          workspace/out/target/product/${{ env.DEVICE_NAME }}/*vendor*.img
+        name: ${{ steps.version.outputs.TWRP_VERSION }} ${{ env.DEVICE_NAME }} ${{ steps.version.outputs.OUTPUT_FILEBASE }}
+        body: |
+          This is a TWRP build for ${{ env.DEVICE_PRODUCT_NAME }} (${{ env.DEVICE_NAME }}).
+          Choose your preferred theme between portrait and landscape.
+          
+          TWRP version: ${{ steps.version.outputs.TWRP_VERSION }}
+          Manifest: ${{ env.MANIFEST_BRANCH }}
+          Device: ${{ env.DEVICE_NAME }}
+          Output: ${{ steps.version.outputs.OUTPUT_FILEBASE }}-portrait.img
+          Output: ${{ steps.version.outputs.OUTPUT_FILEBASE }}-landscape.img
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
