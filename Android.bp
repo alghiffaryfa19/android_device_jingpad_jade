@@ -1,5 +1,0 @@
-soong_namespace {
-    imports: [
-       "bootable/deprecated-ota",
-    ],
-}
