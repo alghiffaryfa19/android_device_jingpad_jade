@@ -186,9 +186,7 @@ PRODUCT_COPY_FILES += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    device/jingpad/jade \
-    bootable/deprecated-ota \
-    hardware/sprd
+    device/jingpad/jade
 
 # Thermal
 PRODUCT_PACKAGES += \
